@@ -5,8 +5,12 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { HiOutlinePencilAlt, HiOutlinePhotograph } from 'react-icons/hi';
 import { useForm } from 'react-hook-form';
+import { useNavigate, useNavigation } from 'react-router-dom';
+import Spinner from '../../Shared/Header/Spinner/Spinner';
 
 const Home = () => {
+    const navigation = useNavigation();
+    const navigate = useNavigate();
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const imgSec = process.env.REACT_APP_IMAGE_SEC;
@@ -43,7 +47,13 @@ const Home = () => {
                     }
                 ]
                 console.log(taskData);
+                fetch('')
             })
+        navigate('/myTask');
+    }
+
+    if (navigation.state === 'loading') {
+        return <Spinner />
     }
     return (
         <Container className='mx-lg-5 px-lg-5'>
