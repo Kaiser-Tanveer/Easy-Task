@@ -4,41 +4,53 @@ import { FaPencilAlt } from 'react-icons/fa';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { HiOutlinePencilAlt, HiOutlinePhotograph } from 'react-icons/hi';
+import { useForm } from 'react-hook-form';
 
 const Home = () => {
+    const { register, formState: { errors }, handleSubmit } = useForm();
+
+    const imgSec = process.env.REACT_APP_IMAGE_SEC;
+
     const [msg, setMsg] = useState('');
     const [img, setImg] = useState('');
 
-    const submitHandler = e => {
-        e.preventDefault();
-        const form = e.target;
-        const message = form.message.value;
-        const image = form.image.value;
+    const submitHandler = data => {
+        const message = data.message;
+        const image = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image);
 
-        //get the current date
-        const currentDate = new Date();
-        const date = currentDate.toLocaleDateString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-        });
+        // Hosting Image in ImageBB
+        const imageUrl = `https://api.imgbb.com/1/upload?key=${imgSec}`
+        fetch(imageUrl, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                //get the current date
+                const currentDate = new Date();
+                const date = currentDate.toLocaleDateString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                });
 
-        e.target.value = '';
-
-        const taskData = [
-            {
-                message,
-                image,
-                date
-            }
-        ]
-        console.log(taskData);
+                const taskData = [
+                    {
+                        message,
+                        photo: imgData.data.url,
+                        date
+                    }
+                ]
+                console.log(taskData);
+            })
     }
     return (
         <Container className='mx-lg-5 px-lg-5'>
             <article className='mx-lg-5 px-lg-5'>
                 <div className='mx-lg-5 px-lg-5'>
                     <h1 className='text-center mt-5'><FaPencilAlt className='fs-3 me-3' />Add a note</h1>
-                    <Form onSubmit={submitHandler} className='mt-4 card p-5 mx-lg-5 shadow'>
+                    <Form onSubmit={handleSubmit(submitHandler)} className='mt-4 card p-5 mx-lg-5 shadow'>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Leave Your Task</Form.Label>
                             <div className='d-flex align-items-center'>
@@ -46,7 +58,10 @@ const Home = () => {
                                     !msg &&
                                     <HiOutlinePencilAlt className='fs-1 me-2' />
                                 }
-                                <Form.Control onChange={(e) => { setMsg(e.target.value); }} name='message' type="text" placeholder="Enter Task" />
+                                <input
+                                    {...register("message", { required: "Task is required." })}
+                                    onChange={(e) => { setMsg(e.target.value); }} name='message' type="text" placeholder="Enter Task" className='w-100 p-2 form-control rounded' required />
+                                {errors.message && <p className='text-error'>{errors.message.message}</p>}
                             </div>
                         </Form.Group>
 
@@ -57,7 +72,10 @@ const Home = () => {
                                     !img &&
                                     <HiOutlinePhotograph className='fs-1 me-2' />
                                 }
-                                <Form.Control onChange={(e) => { setImg(e.target.value); }} name='image' type="file" />
+                                <input
+                                    {...register("image", { required: "Image is required." })}
+                                    onChange={(e) => { setImg(e.target.value); }} name='image' type="file" className='w-100 p-2 form-control rounded' required />
+                                {errors.image && <p className='text-error'>{errors.image.message}</p>}
                             </div>
                         </Form.Group>
 
