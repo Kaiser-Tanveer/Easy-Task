@@ -20,7 +20,8 @@ const router = createBrowserRouter([
             },
             {
                 path: '/myTask',
-                element: <MyTask />
+                element: <MyTask />,
+                loader: async () => fetch('http://localhost:5000/task'),
             },
             {
                 path: '/completed',

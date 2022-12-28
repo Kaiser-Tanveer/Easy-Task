@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
-        <Navbar collapseOnSelect expand="lg" className='bg-info pb-0'>
+        <Navbar collapseOnSelect expand="lg" className='bg-info pb-lg-0'>
             <Container>
                 <Link to='/' className='text-decoration-none text-light fw-bold fs-2'><span className='text-warning'>E</span>asy<span className='text-warning'>T</span>ask</Link>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />

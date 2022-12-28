@@ -7,6 +7,7 @@ import { HiOutlinePencilAlt, HiOutlinePhotograph } from 'react-icons/hi';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useNavigation } from 'react-router-dom';
 import Spinner from '../../Shared/Header/Spinner/Spinner';
+import { toast } from 'react-hot-toast';
 
 const Home = () => {
     const navigation = useNavigation();
@@ -32,6 +33,7 @@ const Home = () => {
         })
             .then(res => res.json())
             .then(imgData => {
+
                 //get the current date
                 const currentDate = new Date();
                 const date = currentDate.toLocaleDateString("en-US", {
@@ -39,21 +41,37 @@ const Home = () => {
                     minute: "2-digit",
                 });
 
-                const taskData = [
-                    {
-                        message,
-                        photo: imgData.data.url,
-                        date
-                    }
-                ]
-                console.log(taskData);
-                fetch('')
-            })
-        navigate('/myTask');
-    }
+                const taskData = {
+                    message,
+                    photo: imgData.data.url,
+                    date
+                }
 
-    if (navigation.state === 'loading') {
-        return <Spinner />
+                console.log(data);
+                // Sending data to Server 
+                fetch(`http://localhost:5000/task`, {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(taskData)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.acknowledged) {
+                            navigate('/myTask');
+                            toast.success('Task Added');
+                            if (navigation.state === "loading") {
+                                return <Spinner />
+                            }
+                        }
+                        else {
+                            toast.error(data.message);
+                        }
+                        console.log(data);
+                    })
+                    .catch(err => console.error(err))
+            })
     }
     return (
         <Container className='mx-lg-5 px-lg-5'>

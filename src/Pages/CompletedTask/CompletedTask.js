@@ -6,15 +6,25 @@ const CompletedTask = () => {
     return (
         <Container>
             <article className='mx-lg-5 px-lg-5 py-5'>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div className='mx-auto fw-semibold'>Task Note</div>
-                        <div className='mx-auto fw-semibold'>Time</div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center"><div><FaCheckCircle className='text-info me-4' /> An item</div>
-                        <div><img src="xyz" alt="" /> <FaRegClock /> 12:00 pm </div>
-                    </li>
-                </ul>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">TASK NOTE</th>
+                            <th scope="col">TIME</th>
+                            <th scope="col">COMPLETED</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                With supporting text below as a natural lead-in to additional content.
+                            </td>
+                            <td><FaRegClock /> 12:00 pm</td>
+                            <td><button className='text-info border-info rounded btn btn-sm me-2'>COMPLETED</button>
+                                <button className='btn btn-danger btn-sm'>NOT COMPLETED</button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </article>
         </Container>
     );
