@@ -6,6 +6,7 @@ import MyTask from "../Pages/MyTask/MyTask";
 import CompletedTask from "../Pages/CompletedTask/CompletedTask";
 import SingleTask from "../Pages/MyTask/SingleTask/SingleTask";
 import Register from "../Pages/Register/Register";
+import LogIn from "../Pages/Register/LogIn";
 
 const router = createBrowserRouter([
     {
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/logIn',
-                element: <Register />
+                element: <LogIn />
             },
             {
                 path: '/myTask',

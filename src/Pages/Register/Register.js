@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { AuthContext } from '../../Contexts/AuthContext/AuthProvider';
 import { Container } from 'react-bootstrap';
+import { AuthContext } from '../../Contexts/AuthContext/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 const Register = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -10,13 +11,16 @@ const Register = () => {
     const [disable, setDisable] = useState(false);
 
     const submitHandler = data => {
-        console.log(data);
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                toast.success('Registered Successfully!')
             })
-            .the(err => console.error(err))
+            .then(err => {
+                console.error(err)
+                toast.error(err.message);
+            })
     }
 
     const termsHandler = (e) => {
@@ -25,8 +29,8 @@ const Register = () => {
     }
     return (
         <Container>
-            <form onSubmit={handleSubmit(submitHandler)} className="mx-auto bg-info card my-5 p-4 shadow-lg" style={{ width: "360px" }}>
-                <h2 className='text-warning fw-bold fs-bold text-center'>REGISTER</h2>
+            <form onSubmit={handleSubmit(submitHandler)} className="mx-auto bg-info card my-5 p-4 shadow" style={{ width: "360px" }}>
+                <h2 className='text-warning fs-bold text-center'>REGISTER</h2>
                 <label>Your Name</label>
                 <input
                     {...register("name", { required: "Name is required." })}
@@ -51,11 +55,11 @@ const Register = () => {
                         !disable ?
                             <button type="submit" className="mx-auto w-100 btn btn-secondary fs-semibold rounded" disabled>Register</button>
                             :
-                            <button type="submit" className="mx-auto w-100 font-semibold btn btn-warning rounded shadow">Register</button>
+                            <button type="submit" className="mx-auto w-100 btn btn-warning fs-semibold rounded">Register</button>
                     }
                 </div>
-                <div className="">
-                    <p>Already have an account? Please <Link className='link' to='/logIn'>Login</Link></p>
+                <div>
+                    <p>Already have an account? Please <Link className='link-hover' to='/logIn'>Login</Link></p>
                 </div>
             </form>
         </Container>
