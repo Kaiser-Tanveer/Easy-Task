@@ -1,31 +1,25 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import { FaRegClock } from 'react-icons/fa';
+import { useLoaderData, useNavigation } from 'react-router-dom';
+import CompletedTaskCard from './CompletedTaskCard/CompletedTaskCard';
+import Spinner from '../../Shared/Header/Spinner/Spinner';
+import PrivateRoute from '../../Routers/PrivateRoute/PrivateRoute';
 
 const CompletedTask = () => {
+    const navigation = useNavigation();
+    const tasks = useLoaderData();
+    if (navigation.state === 'loading') {
+        return <Spinner />
+    }
     return (
         <Container>
-            <article className='mx-lg-5 px-lg-5 py-5'>
-                <table className="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">TASK NOTE</th>
-                            <th scope="col">TIME</th>
-                            <th scope="col">COMPLETED</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                With supporting text below as a natural lead-in to additional content.
-                            </td>
-                            <td><FaRegClock /> 12:00 pm</td>
-                            <td><button className='text-info border-info rounded btn btn-sm me-2'>COMPLETED</button>
-                                <button className='btn btn-danger btn-sm'>NOT COMPLETED</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </article>
+            {
+                tasks.map(task => <CompletedTaskCard
+                    key={task._id}
+                    task={task}
+                />)
+            }
+            <PrivateRoute />
         </Container>
     );
 };

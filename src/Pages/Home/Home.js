@@ -75,7 +75,7 @@ const Home = () => {
             })
     }
     return (
-        <Container className='mx-lg-5 px-lg-5'>
+        <Container className='mb-5 mx-lg-5 px-lg-5'>
             <article className='mx-lg-5 px-lg-5'>
                 <div className='mx-lg-5 px-lg-5'>
                     <h1 className='text-center mt-5'><FaPencilAlt className='fs-3 me-3' />Add a note</h1>

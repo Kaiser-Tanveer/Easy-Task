@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Container } from 'react-bootstrap';
 import { toast } from 'react-hot-toast';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
-import { Link, useNavigation } from 'react-router-dom';
+import { Link, Navigate, useNavigation } from 'react-router-dom';
 import Spinner from '../../Shared/Header/Spinner/Spinner';
 
 const MyTaskCard = ({ task }) => {
@@ -21,6 +21,7 @@ const MyTaskCard = ({ task }) => {
                         return <Spinner />
                     }
                     toast.success('Task Deleted!!');
+                    Navigate('/myTask');
                 })
         }
     }
