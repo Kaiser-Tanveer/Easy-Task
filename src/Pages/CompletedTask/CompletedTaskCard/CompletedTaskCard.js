@@ -1,6 +1,8 @@
 import React from 'react';
 import { toast } from 'react-hot-toast';
 import { FaRegClock } from 'react-icons/fa';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 const CompletedTaskCard = ({ task }) => {
     const { photo, message, date, _id } = task;
@@ -17,26 +19,26 @@ const CompletedTaskCard = ({ task }) => {
             })
     }
     return (
-        <article className='mx-lg-5 px-lg-5 py-5'>
-            <table className="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">TASK NOTE</th>
-                        <th scope="col">TIME</th>
-                        <th scope="col">COMPLETED</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            {message}
-                        </td>
-                        <td><FaRegClock /> {date}</td>
-                        <td><button className='text-info border-info rounded btn btn-sm me-2'>COMPLETED</button>
-                            <button onClick={(() => notCompletedHandler(_id))} className='btn btn-danger btn-sm'>NOT COMPLETED</button></td>
-                    </tr>
-                </tbody>
-            </table>
+        <article className='mx-lg-5 px-lg-5 my-5 rounded bg-white shadow'>
+            <Table className="table-hover rounded">
+                <Thead>
+                    <Tr>
+                        <Th>TASK NOTE</Th>
+                        <Th>IMAGE</Th>
+                        <Th>DATE</Th>
+                        <Th>ACTIVITIES</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    <Tr>
+                        <Td>{message}</Td>
+                        <Td><img src={photo} alt="" width="60px" className='rounded shadow' /></Td>
+                        <Td><FaRegClock /> {date}</Td>
+                        <Td className="align-item-center"><button className='text-info fs-12 border-info rounded m-2'>completed</button>
+                            <button onClick={(() => notCompletedHandler(_id))} className='btn btn-danger btn-sm shadow m-2'>NOT COMPLETED</button></Td>
+                    </Tr>
+                </Tbody>
+            </Table>
         </article>
     );
 };

@@ -5,6 +5,7 @@ import Blog from "../Pages/Home/Blog/Blog";
 import MyTask from "../Pages/MyTask/MyTask";
 import CompletedTask from "../Pages/CompletedTask/CompletedTask";
 import SingleTask from "../Pages/MyTask/SingleTask/SingleTask";
+import Register from "../Pages/Register/Register";
 
 const router = createBrowserRouter([
     {
@@ -18,6 +19,14 @@ const router = createBrowserRouter([
             {
                 path: '/blog',
                 element: <Blog />
+            },
+            {
+                path: '/register',
+                element: <Register />
+            },
+            {
+                path: '/logIn',
+                element: <Register />
             },
             {
                 path: '/myTask',
