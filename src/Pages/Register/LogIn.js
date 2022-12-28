@@ -1,21 +1,36 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { FaFacebook, FaFacebookF, FaGoogle, FaUserCircle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { FaGoogle, FaUserCircle } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthContext/AuthProvider';
 import { toast } from 'react-hot-toast';
 
 const LogIn = () => {
-    const { logIn } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const { logIn, GSignIn } = useContext(AuthContext);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const submitHandler = data => {
         logIn(data.email, data.password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                toast.success('Logged In Successfully!')
+                toast.success('Logged In Successfully!');
+                navigate('/');
             })
             .then(err => {
+                toast.error(err.message);
+            })
+    }
+
+    const googleLogIn = () => {
+        GSignIn()
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast.success('Logged in with Google Successfully!');
+            })
+            .then(err => {
+                console.error(err);
                 toast.error(err.message);
             })
     }
@@ -38,7 +53,7 @@ const LogIn = () => {
                 <p className="text-gray-600">New in EduShop? Please <Link to='/register'>Register</Link></p>
             </div>
             <h4 className='fs-semibold mt-6 text-center'>Sign in with</h4>
-            <FaGoogle className='fs-1 rounded-circle mx-auto shadow' />
+            <FaGoogle onClick={googleLogIn} className='fs-1 rounded-circle mx-auto shadow' />
         </form>
     );
 };
