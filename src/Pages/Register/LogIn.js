@@ -1,12 +1,15 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGoogle, FaUserCircle } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthContext/AuthProvider';
 import { toast } from 'react-hot-toast';
 
 const LogIn = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || '/';
+
     const { logIn, GSignIn } = useContext(AuthContext);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const submitHandler = data => {
@@ -15,10 +18,10 @@ const LogIn = () => {
                 const user = result.user;
                 console.log(user);
                 toast.success('Logged In Successfully!');
-                navigate('/');
+                navigate(from, { replace: true });
             })
             .then(err => {
-                toast.error(err.message);
+                console.log(err);
             })
     }
 
@@ -28,10 +31,10 @@ const LogIn = () => {
                 const user = result.user;
                 console.log(user);
                 toast.success('Logged in with Google Successfully!');
+                navigate(from, { replace: true });
             })
             .then(err => {
                 console.error(err);
-                toast.error(err.message);
             })
     }
     return (

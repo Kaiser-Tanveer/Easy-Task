@@ -32,17 +32,17 @@ const router = createBrowserRouter([
             {
                 path: '/myTask',
                 element: <MyTask />,
-                loader: async () => fetch('http://localhost:5000/task'),
+                loader: async () => fetch('https://easy-task-server.vercel.app/task'),
             },
             {
                 path: '/task/:id',
                 element: <SingleTask />,
-                loader: async ({ params }) => fetch(`http://localhost:5000/task/${params.id}`),
+                loader: async ({ params }) => fetch(`https://easy-task-server.vercel.app/task/${params.id}`),
             },
             {
                 path: '/completed',
                 element: <CompletedTask />,
-                loader: () => fetch('http://localhost:5000/completed'),
+                loader: () => fetch('https://easy-task-server.vercel.app/completed'),
             },
         ]
     }

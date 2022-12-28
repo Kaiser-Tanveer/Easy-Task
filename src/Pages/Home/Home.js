@@ -50,7 +50,7 @@ const Home = () => {
 
                 console.log(data);
                 // Sending data to Server 
-                fetch(`http://localhost:5000/task`, {
+                fetch(`https://easy-task-server.vercel.app/task`, {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

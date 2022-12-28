@@ -18,7 +18,7 @@ const SingleTask = () => {
             updatedMsg
         }
 
-        fetch(`http://localhost:5000/updatedTask/${_id}`, {
+        fetch(`https://easy-task-server.vercel.app/updatedTask/${_id}`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

@@ -8,7 +8,7 @@ const CompletedTaskCard = ({ task }) => {
     const { photo, message, date, _id } = task;
 
     const notCompletedHandler = id => {
-        fetch(`http://localhost:5000/notCompleted/${id}`, {
+        fetch(`https://easy-task-server.vercel.app/notCompleted/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())

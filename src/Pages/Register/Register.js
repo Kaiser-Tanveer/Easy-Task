@@ -19,7 +19,6 @@ const Register = () => {
             })
             .then(err => {
                 console.error(err)
-                toast.error(err.message);
             })
     }
 
@@ -49,7 +48,7 @@ const Register = () => {
                 <div className='mt-6'>
                     <div className='d-flex align-items-center py-2'>
                         <input onClick={termsHandler} type="checkbox" className='me-2' />
-                        <span>Accept <Link className='link-hover'>terms and conditions</Link></span>
+                        <span>Accept <Link to='/blog' className='link-hover'>terms and conditions</Link></span>
                     </div>
                     {
                         !disable ?
