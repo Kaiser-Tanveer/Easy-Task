@@ -1,12 +1,12 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import { FaCheckCircle, FaRegClock } from 'react-icons/fa';
+import { FaRegClock } from 'react-icons/fa';
 
 const CompletedTask = () => {
     return (
         <Container>
             <article className='mx-lg-5 px-lg-5 py-5'>
-                <table class="table table-hover">
+                <table className="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">TASK NOTE</th>

@@ -1,40 +1,40 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const MyTaskCard = ({ task }) => {
     const { photo, message, date, _id } = task;
 
-    // Edit handler 
-    const editHandler = (id) => {
-        console.log(id);
+    const editHandler = id => {
+
     }
     return (
         <Container className='my-5 mx-lg-5 px-lg-5 '>
             <article className='mx-lg-5 px-lg-5 '>
-                <div class="card text-center mx-lg-5 shadow">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <button onClick={() => editHandler(_id)} className='btn btn-light btn-sm border-secondary'>
-                            <FaPencilAlt className='fs-6' />
-                        </button>
+                <div className="card text-center mx-lg-5 shadow">
+                    <div className="card-header d-flex justify-content-between align-items-center">
+                        <Link to={`/task/${_id}`}>
+                            <button variant="primary" onClick={() => editHandler(_id)} className='btn btn-light btn-sm border-secondary'>
+                                <FaPencilAlt className='fs-6' />
+                            </button>
+                        </Link>
                         <p>Review Task</p>
                         <button className='btn btn-light btn-sm border-danger'>
                             <FaTrashAlt className='fs-6 text-danger' />
                         </button>
                     </div>
-                    <div class="card-body">
+                    <div className="card-body">
                         <img src={photo} alt="" className='w-25 rounded shadow' />
-                        <p class="card-text">{message}</p>
+                        <p className="card-text">{message}</p>
                         <div className='d-flex justify-content-between align-items-center'>
-
                             <p className='text-info fw-bold'>
                                 TASK ADDED
                             </p>
                             <button className='btn btn-xs btn-info border-secondary disabled'>COMPLETED</button>
-
                         </div>
                     </div>
-                    <div class="card-footer text-muted">
+                    <div className="card-footer text-muted">
                         {date}
                     </div>
                 </div>
