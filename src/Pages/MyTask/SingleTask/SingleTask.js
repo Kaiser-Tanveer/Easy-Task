@@ -1,21 +1,24 @@
 import React from 'react';
 import { useLoaderData, useNavigate, useNavigation } from 'react-router-dom';
 import Spinner from '../../../Shared/Header/Spinner/Spinner';
+import { toast } from 'react-hot-toast';
 
 const SingleTask = () => {
     const navigate = useNavigate();
     const navigation = useNavigation();
     const task = useLoaderData();
-    const { message } = task;
+    const { message, _id } = task;
 
     const submitHandler = e => {
         e.preventDefault();
         const updatedMsg = e.target.message.value;
         console.log(updatedMsg);
 
-        const data = { updatedMsg }
+        const data = {
+            updatedMsg
+        }
 
-        fetch('http://localhost:5000/updatedTask', {
+        fetch(`http://localhost:5000/updatedTask/${_id}`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -26,8 +29,10 @@ const SingleTask = () => {
             .then(data => {
                 console.log(data);
             })
+        toast.success('Task Updated Successfully!');
         navigate('/myTask');
     }
+
 
     if (navigation.state === 'loading') {
         return <Spinner />
