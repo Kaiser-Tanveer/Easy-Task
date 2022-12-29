@@ -1,12 +1,12 @@
 import React from 'react';
+import { } from 'react-spinners';
+import PacmanLoader from 'react-spinners/PacmanLoader';
 
 const Spinner = () => {
+
     return (
-        <div className='w-25 m-auto'>
-            <button className="btn btn-info mx-auto" type="button" disabled>
-                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Loading...
-            </button>
+        <div className='d-flex mx-auto justify-content-center' style={{ height: "80vh", marginTop: "45vh" }}>
+            <PacmanLoader color="#0dcaf0" />
         </div>
     );
 };

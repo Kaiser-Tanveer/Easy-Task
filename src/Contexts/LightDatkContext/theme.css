@@ -3,6 +3,8 @@
 }
 
 .icon {
+    z-index: 10;
+    right: 10px;
     animation-name: spin;
     animation-duration: 5000ms;
     animation-iteration-count: infinite;
