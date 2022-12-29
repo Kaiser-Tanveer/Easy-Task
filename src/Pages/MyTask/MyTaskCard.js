@@ -39,6 +39,10 @@ const MyTaskCard = ({ task }) => {
                 }
             })
     }
+
+    if (navigation.state === 'loading') {
+        return <Spinner />
+    }
     return (
         <Container className='my-5 mx-lg-5 px-lg-5 '>
             {

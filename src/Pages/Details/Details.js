@@ -30,9 +30,9 @@ const Details = () => {
             </div>
             <Card.Img variant="top" src={photo} />
             <Card.Body>
-                <Card.Title>Task Detail</Card.Title>
-                <Card.Text>
-                    {message} {completed}
+                <Card.Title className='text-secondary'>Task Detail</Card.Title>
+                <Card.Text className='text-secondary'>
+                    {message}
                 </Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">
