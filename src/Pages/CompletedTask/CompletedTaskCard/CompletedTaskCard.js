@@ -1,10 +1,12 @@
 import React from 'react';
 import { toast } from 'react-hot-toast';
 import { FaRegClock } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 const CompletedTaskCard = ({ task }) => {
+    const navigate = useNavigate();
     const { photo, message, date, _id } = task;
 
     const notCompletedHandler = id => {
@@ -15,12 +17,13 @@ const CompletedTaskCard = ({ task }) => {
             .then(data => {
                 if (data.modifiedCount > 0) {
                     toast.success('Added as Not Completed!!');
+                    navigate('/myTask');
                 }
             })
     }
     return (
-        <article className='mx-lg-5 px-lg-5 my-5 rounded bg-white shadow'>
-            <Table className="table-hover rounded">
+        <article className='mx-lg-5 px-lg-5 mb-5 rounded bg-white shadow'>
+            <Table className="table-hover rounded text-secondary">
                 <Thead>
                     <Tr>
                         <Th>TASK NOTE</Th>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGoogle, FaUserCircle } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -9,6 +9,8 @@ const LogIn = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location?.state?.from?.pathname || '/';
+
+    const [formError, setFormError] = useState('');
 
     const { logIn, GSignIn } = useContext(AuthContext);
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -22,6 +24,7 @@ const LogIn = () => {
             })
             .then(err => {
                 console.log(err);
+                setFormError(err.message);
             })
     }
 
@@ -52,11 +55,15 @@ const LogIn = () => {
                 type="password" className="rounded p-2 fw-semibold border-info" required />
             {errors.password && <p className='text-error'>{errors.password.message}</p>}
             <button type="submit" className="mx-auto w-100 btn btn-warning fs-semibold rounded shadow mt-4">Login</button>
+            {
+                formError &&
+                <p className='text-danger my-2'>{formError}</p>
+            }
             <div className="mt-2">
                 <p className="text-gray-600">New in EduShop? Please <Link to='/register'>Register</Link></p>
             </div>
             <h4 className='fs-semibold mt-6 text-center'>Sign in with</h4>
-            <FaGoogle onClick={googleLogIn} className='fs-1 rounded-circle mx-auto shadow' />
+            <FaGoogle onClick={googleLogIn} className='fs-1 text-light rounded-circle mx-auto shadow' />
         </form>
     );
 };

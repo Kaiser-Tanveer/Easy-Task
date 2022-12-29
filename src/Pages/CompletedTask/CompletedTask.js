@@ -12,7 +12,8 @@ const CompletedTask = () => {
         return <Spinner />
     }
     return (
-        <Container>
+        <Container className=''>
+            <h2 className='fw-bold mt-5 mb-3 text-center'>All The Completed Tasks</h2>
             {
                 tasks.map(task => <CompletedTaskCard
                     key={task._id}

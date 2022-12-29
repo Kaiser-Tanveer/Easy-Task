@@ -78,14 +78,14 @@ const Home = () => {
         <Container className='mb-5 mx-lg-5 px-lg-5'>
             <article className='mx-lg-5 px-lg-5'>
                 <div className='mx-lg-5 px-lg-5'>
-                    <h1 className='text-center mt-5'><FaPencilAlt className='fs-3 me-3' />Add a note</h1>
+                    <h1 className='text-center mt-5'><FaPencilAlt className='fs-3 me-3' />ADD A TASK</h1>
                     <Form onSubmit={handleSubmit(submitHandler)} className='mt-4 card p-5 mx-lg-5 shadow'>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Leave Your Task</Form.Label>
+                            <Form.Label className='text-secondary'>Leave Your Task</Form.Label>
                             <div className='d-flex align-items-center'>
                                 {
                                     !msg &&
-                                    <HiOutlinePencilAlt className='fs-1 me-2' />
+                                    <HiOutlinePencilAlt className='fs-1 me-2 text-secondary' />
                                 }
                                 <input
                                     {...register("message", { required: "Task is required." })}
@@ -95,11 +95,11 @@ const Home = () => {
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Upload Image</Form.Label>
+                            <Form.Label className='text-secondary'>Upload Image</Form.Label>
                             <div className='d-flex align-items-center'>
                                 {
                                     !img &&
-                                    <HiOutlinePhotograph className='fs-1 me-2' />
+                                    <HiOutlinePhotograph className='fs-1 me-2 text-secondary' />
                                 }
                                 <input
                                     {...register("image", { required: "Image is required." })}

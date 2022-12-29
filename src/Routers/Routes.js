@@ -7,6 +7,9 @@ import CompletedTask from "../Pages/CompletedTask/CompletedTask";
 import SingleTask from "../Pages/MyTask/SingleTask/SingleTask";
 import Register from "../Pages/Register/Register";
 import LogIn from "../Pages/Register/LogIn";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import Details from "../Pages/Details/Details";
+import LightDarkProvider from "../Contexts/LightDatkContext/LightDarkProvider";
 
 const router = createBrowserRouter([
     {
@@ -35,13 +38,18 @@ const router = createBrowserRouter([
                 loader: async () => fetch('https://easy-task-server.vercel.app/task'),
             },
             {
+                path: '/details/:id',
+                element: <PrivateRoute><Details /></PrivateRoute>,
+                loader: async ({ params }) => fetch(`https://easy-task-server.vercel.app/details/${params.id}`),
+            },
+            {
                 path: '/task/:id',
-                element: <SingleTask />,
+                element: <PrivateRoute><SingleTask /></PrivateRoute>,
                 loader: async ({ params }) => fetch(`https://easy-task-server.vercel.app/task/${params.id}`),
             },
             {
                 path: '/completed',
-                element: <CompletedTask />,
+                element: <PrivateRoute><CompletedTask /></PrivateRoute>,
                 loader: () => fetch('https://easy-task-server.vercel.app/completed'),
             },
         ]
