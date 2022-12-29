@@ -1,12 +1,13 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import app from '../../Firebase/firebase.config';
+import Spinner from '../../Shared/Header/Spinner/Spinner';
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const GProvider = new GoogleAuthProvider();
 
     // Creating User 
@@ -27,7 +28,7 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, GProvider);
     }
 
-    // Singn Out 
+    // Sign Out 
     const logOut = () => {
         setLoading(true);
         return signOut(auth);
@@ -44,9 +45,14 @@ const AuthProvider = ({ children }) => {
         }
     }, [])
 
+    if (loading === true) {
+        return <Spinner />
+    }
+
     const authValue = {
         user,
         loading,
+        setLoading,
         createUser,
         logIn,
         GSignIn,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { FaPencilAlt } from 'react-icons/fa';
 import Button from 'react-bootstrap/Button';
@@ -8,8 +8,10 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, useNavigation } from 'react-router-dom';
 import Spinner from '../../Shared/Header/Spinner/Spinner';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../Contexts/AuthContext/AuthProvider';
 
 const Home = () => {
+    const { setLoading } = useContext(AuthContext);
     const navigation = useNavigation();
     const navigate = useNavigate();
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -33,7 +35,10 @@ const Home = () => {
         })
             .then(res => res.json())
             .then(imgData => {
-
+                setLoading(true);
+                if (navigation.state === 'loading') {
+                    return <Spinner />
+                }
                 //get the current date
                 const currentDate = new Date();
                 const date = currentDate.toLocaleDateString("en-US", {
@@ -58,27 +63,30 @@ const Home = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
+                        setLoading(true);
+                        if (navigation.state === "loading") {
+                            return <Spinner />
+                        }
                         if (data.acknowledged) {
-                            navigate('/myTask');
+                            setLoading(false);
                             toast.success('Task Added');
-                            if (navigation.state === "loading") {
-                                return <Spinner />
-                            }
+                            navigate('/myTask');
                         }
                         else {
                             toast.error(data.message);
                         }
                         console.log(data);
                     })
-                    .catch(err => console.error(err))
-            })
-    }
+                    .catch(err => console.error(err));
+            });
+    };
     return (
         <Container className='mb-5 mx-lg-5 px-lg-5'>
             <article className='mx-lg-5 px-lg-5'>
                 <div className='mx-lg-5 px-lg-5'>
                     <h1 className='text-center mt-5'><FaPencilAlt className='fs-3 me-3' />ADD A TASK</h1>
                     <Form onSubmit={handleSubmit(submitHandler)} className='mt-4 card p-5 mx-lg-5 shadow'>
+
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label className='text-secondary'>Leave Your Task</Form.Label>
                             <div className='d-flex align-items-center'>

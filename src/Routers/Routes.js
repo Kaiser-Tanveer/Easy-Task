@@ -9,7 +9,6 @@ import Register from "../Pages/Register/Register";
 import LogIn from "../Pages/Register/LogIn";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Details from "../Pages/Details/Details";
-import LightDarkProvider from "../Contexts/LightDatkContext/LightDarkProvider";
 
 const router = createBrowserRouter([
     {

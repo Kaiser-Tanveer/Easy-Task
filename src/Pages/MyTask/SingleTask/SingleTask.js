@@ -9,28 +9,27 @@ const SingleTask = () => {
     const task = useLoaderData();
     const { message, _id } = task;
 
-    const submitHandler = e => {
+    const submitHandler = (e, id) => {
         e.preventDefault();
-        const updatedMsg = e.target.message.value;
-        console.log(updatedMsg);
+        const msg = e.target.message.value;
 
-        const data = {
-            updatedMsg
-        }
+        const updatedMsg = { msg }
 
-        fetch(`https://easy-task-server.vercel.app/updatedTask/${_id}`, {
-            method: 'POST',
+
+        fetch(`https://easy-task-server.vercel.app/updatedTask/${id}`, {
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(updatedMsg)
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                if (data?.modifiedCount > 0) {
+                    toast.success('Updated Successfully!');
+                    navigate('/myTask');
+                }
             })
-        toast.success('Task Updated Successfully!');
-        navigate('/myTask');
     }
 
 
@@ -38,7 +37,7 @@ const SingleTask = () => {
         return <Spinner />
     }
     return (
-        <form onSubmit={submitHandler} className='card shadow my-5 mx-auto'>
+        <form onSubmit={(e) => submitHandler(e, _id)} className='card shadow my-5 mx-auto'>
             <textarea type="text" name='message' defaultValue={message} className='mx-5 mt-5 p-3' />
             <input type="submit" value="Update" className='form-control mt-2 mx-5 ms-auto mb-5 btn btn-info btn-sm w-25' />
         </form>
