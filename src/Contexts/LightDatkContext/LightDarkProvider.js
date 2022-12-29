@@ -18,7 +18,7 @@ const LightDarkProvider = () => {
     return (
         <div className='theme'>
             <div className={`App ${theme}`}>
-                <p onClick={toggleTheme}><FaMoon className='fs-4 position-fixed' /></p>
+                <p onClick={toggleTheme}><FaMoon className='fs-1 position-fixed border rounded-circle p-2 border-dashed shadow mt-2' /></p>
             </div>
         </div>
     );
